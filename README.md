@@ -20,4 +20,18 @@ As mentioned above, each country deals with its own patent system, and although 
 
 
 # Why use blockchain technology to build an universal patent system:
+Imagine that you create or discover an easier and revolutionary way to do your work, and you want to register it as a patent. Often, there is no good and safe way to catalogue your work: in UK for example, copyright is unregistered. In that case, some important consequences are:
 
+* Ownership can be hard to prove
+* It is difficult to keep track of who is using your patent
+* It is also difficult for someone who wants to use a patent to find its owner
+* Infringments are hard to contain
+* Monetising rights can be easily harmed with a lot of works that were based on the original
+
+In resume, it is not easy to register a patent, and consulting the original work can be hard too. Builiding the patent system in a blockchain, with smart contrats, can put an end to all problems described above in this session. Putting a patent in the blockchain means that nobody can change or destroy the document information: **This is because a blockchain transaction is immutable**.
+
+Beyond that, anyone can check when and who putted the document in the blockchain system, and keep track on how the work is being used. That means that the author can see who is using his work, and if the work is being used correctly, without infringments. With the blockchain system, transactions between clients and author can be made by a direct link, wich means that more people will actually pay for using other's work.
+
+This is great! But there is one last problem to solve: **Who created the patent first?** There are cases where more than one author creates a great solution to the same problem, with close approach. In that case, depositing a copy of the creation at a notary can work. The blockchain system can check at that service the official date of two or more documents. Those services will not keep the document itself, only the reference of a document a it release's date.
+
+With this strategy, our work seek to build a blockchain system that can solve the patent's world problem. 
