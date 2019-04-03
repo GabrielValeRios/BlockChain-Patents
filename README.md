@@ -30,8 +30,13 @@ Imagine that you create or discover an easier and revolutionary way to do your w
 
 In resume, it is not easy to register a patent, and consulting the original work can be hard too. Builiding the patent system in a blockchain, with smart contrats, can put an end to all problems described above in this session. Putting a patent in the blockchain means that nobody can change or destroy the document information: **This is because a blockchain transaction is immutable**.
 
-Beyond that, anyone can check when and who putted the document in the blockchain system, and keep track on how the work is being used. That means that the author can see who is using his work, and if the work is being used correctly, without infringments. With the blockchain system, transactions between clients and author can be made by a direct link, wich means that more people will actually pay for using other's work.
+Beyond that, anyone can check when and who putted the document in the blockchain system, and keep track on how the work is being used. That means that the author can see who is using his work, and if the work is being used correctly, without infringments. With the blockchain system, transactions between clients and author can be made by a direct link, wich means that more people will actually pay for using other's work. This process can be handled by **Smart Contracts**, protocols that auto-execute codes responsible for transactions between blockchain users.
 
-This is great! But there is one last problem to solve: **Who created the patent first?** There are cases where more than one author creates a great solution to the same problem, with close approach. In that case, depositing a copy of the creation at a notary can work. The blockchain system can check at that service the official date of two or more documents. Those services will not keep the document itself, only the reference of a document a it release's date.
+This is great! But there is one last problem to solve: **Who created the patent first?** There are cases where more than one author creates a great solution to the same problem, with close approach. In that case, depositing a copy of the creation at a notary can work. The blockchain system can check at that service the official date of two or more documents. This is usefull to keep historical proof that the final invention was being developed in minor steps, and then finally converted to a major innovative technology.
 
-With this strategy, our work seek to build a blockchain system that can solve the patent's world problem. 
+With this strategy, our work seek to build a blockchain system that can solve the patent's world problem, keeping the documents inside the blockchain, where:
+
+* The patent's owner can see who is using his job and for what kind of services the invetion is being used for;
+* Interested parties can easily check who is the owner of a certain technology;
+* Patent's date creation can be checked without contestation;
+* The patent's owner can easily get payed with **Smart Contracts** technology
