@@ -41,7 +41,7 @@ contract Patents {
         return string(patentBytes);
     }
 
-    // given a patent, get who is using it
+    // given a patent from an user, get who is using it
     function getOwnerPatentClients(address adr, bytes memory patent) public view returns (address[] memory){
         patentOwner storage ownerInfo = patentsOwner[adr];
         return ownerInfo.patentUsers[patent];

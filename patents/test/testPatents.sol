@@ -5,21 +5,20 @@ import "truffle/DeployedAddresses.sol";
 import "../contracts/Patents.sol";
 
 contract TestPatents {
-    // The address of the patent contract to be tested
+    // The address of the patents contract to be tested
     Patents patents = Patents(DeployedAddresses.Patents());
+    string str_patent = "this is a contract.";
 
-    // Patent
-    string expectedPatent = "Eu sou uma patente";
-    bytes expectedPatentBytes = bytes(expectedPatent);
+    //The expected owner of adopted pet is this contract
+    address cur_adr = address(this);
 
-    //The expected owner of patent owner is this contract
-    address expectedAdr = address(this);
-
-    // Testing patent declaration function
-    function testUserCanDeclarePatent() public {
-        string memory returnedPatent = patents.declarePatent(expectedAdr,expectedPatent);
-
-        Assert.equal(returnedPatent, expectedPatent, "ReturnedPatent and expectedPatent should be equal.");
+    function testdeclarePatent() public {
+        string memory new_patent = patents.declarePatent(cur_adr, str_patent);
+        Assert.equal(new_patent, str_patent, "Patents should match");
     }
 
+    function testCheckOwnerExists() public {
+        bool is_owner = patents.checkOwnerExists(cur_adr);
+        Assert.equal(true, is_owner, "Patents should match");
+    }
 }
