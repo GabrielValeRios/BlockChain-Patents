@@ -12,7 +12,7 @@ contract Patents {
     address[] public ownersAddress; // to make function to get info from owner through addrs
 
     // ownersAddress's getter
-    function ownersArrayGetter() view public returns (address[] memory){
+    function ownersArrayGetter() public view returns (address[] memory){
         return ownersAddress;
     }
 
@@ -36,18 +36,18 @@ contract Patents {
         ownerInfo.patents.push(patentBytes);
         ownerInfo.exists = true;
         // push owner address to array
-        ownersAddress.push(adr);  
+        ownersAddress.push(adr);
 
         return string(patentBytes);
     }
 
     // given a patent, get who is using it
-    function getOwnerPatentClients(address adr, bytes memory patent) view public returns (address[] memory){
+    function getOwnerPatentClients(address adr, bytes memory patent) public view returns (address[] memory){
         patentOwner storage ownerInfo = patentsOwner[adr];
         return ownerInfo.patentUsers[patent];
     }
 
-    function getOwnerPatents(address adr) view public returns (bytes[] memory){
+    function getOwnerPatents(address adr) public view returns (bytes[] memory){
         patentOwner storage ownerInfo = patentsOwner[adr];
         return ownerInfo.patents;
     }
