@@ -13,12 +13,12 @@ contract testPatents {
     address cur_adr = address(this);
 
     function testdeclarePatent() public {
-        string memory new_patent = patents.declarePatent(cur_adr, str_patent);
+        string memory new_patent = patents.declarePatent(str_patent);
         Assert.equal(new_patent, str_patent, "Patents should match");
     }
 
     function testCheckOwnerExists() public {
-        bool is_owner = patents.checkOwnerExists(cur_adr);
+        bool is_owner = patents._checkOwnerExists();
         Assert.equal(true, is_owner, "Patents should match");
     }
 }
