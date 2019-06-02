@@ -3,7 +3,6 @@ App = {
   contracts: {},
 
   init: async function() {
-
     return await App.initWeb3();
   },
 
@@ -47,77 +46,48 @@ App = {
       // Set the provider for our contract
       App.contracts.Patent.setProvider(App.web3Provider);
 
-      // Use our contract to retrieve and mark the adopted pets
+      return App.getPatents();
     });
   },
 
   deployPatent: function() {
-    var contract = document.getElementById("patent_input").value;
-    console.log(contract)
+    var patent = document.getElementById("patent_input").value;
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
         console.log(error);
       }
-
+      
       var account = accounts[0];
-
       App.contracts.Patent.deployed().then(function(instance) {
         patentInstance = instance;
-        patentInstance.declarePatent(contract, {from: account});
+        patentInstance.declarePatent(patent, {from: account});
+      
       }).catch(function(err) {
         console.log(err.message);
       });
-    });   
+    });
   },
 
-  // bindEvents: function() {
-  //   $(document).on('click', '.btn-adopt', App.handleAdopt);
-  // },
-
-  getPatents: function(adopters, account) {
+  getPatents: function() {
     var patentInstance;
+    var patentList = document.getElementById("own_patents");
 
     App.contracts.Patent.deployed().then(function(instance) {
       patentInstance = instance;
-
       return patentInstance.getOwnerPatents.call();
     }).then(function(patents) {
-      for (i = 0; i < adopters.length; i++) {
-        if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
-          $('.panel-pet').eq(i).find('button').text('Success').attr('disabled', true);
-        }
+      for (i = 0; i < patents.length; i++) {
+        console.log(patents[i]);
+        var node = document.createElement("LI");
+        node.className = "list-group-item";
+        var textnode = document.createTextNode(patents[i]);
+        node.appendChild(textnode);
+        patentList.appendChild(node); 
       }
     }).catch(function(err) {
       console.log(err.message);
     });
   },
-
-  // handleAdopt: function(event) {
-  //   event.preventDefault();
-
-  //   var petId = parseInt($(event.target).data('id'));
-
-  //   var adoptionInstance;
-
-  //   web3.eth.getAccounts(function(error, accounts) {
-  //     if (error) {
-  //       console.log(error);
-  //     }
-
-  //     var account = accounts[0];
-
-  //     App.contracts.Adoption.deployed().then(function(instance) {
-  //       adoptionInstance = instance;
-
-  //       // Execute adopt as a transaction by sending account
-  //       return adoptionInstance.adopt(petId, {from: account});
-  //     }).then(function(result) {
-  //       return App.markAdopted();
-  //     }).catch(function(err) {
-  //       console.log(err.message);
-  //     });
-  //   });
-  // }
 
 };
 

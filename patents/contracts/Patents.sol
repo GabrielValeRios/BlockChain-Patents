@@ -114,10 +114,11 @@ contract Patents {
 
         string[] memory patents;
         uint counter = 0;
-        for(uint i = 0; i < patentsBytes.length; i++){
+        for(uint i = 0; i <= patentsBytes.length; i++){
             string memory stringPatent = _toString(patentsBytes[i]);
             patents[counter] = stringPatent;
             counter += 1;
+        }
         return patents;
     }
 
