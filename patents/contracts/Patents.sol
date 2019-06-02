@@ -108,9 +108,17 @@ contract Patents {
     }
 
     // get patents related to owner adr
-    function getOwnerPatents() public view returns (bytes[] memory){
+    function getOwnerPatents() public view returns (string[] memory){
         patentOwner storage ownerInfo = patentsOwner[msg.sender];
-        return ownerInfo.patents;
+        bytes[] memory patentsBytes = ownerInfo.patents;
+
+        string[] memory patents;
+        uint counter = 0;
+        for(uint i = 0; i < patentsBytes.length; i++){
+            string memory stringPatent = _toString(patentsBytes[i]);
+            patents[counter] = stringPatent;
+            counter += 1;
+        return patents;
     }
 
 }
