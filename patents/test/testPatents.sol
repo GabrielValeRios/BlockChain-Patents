@@ -4,7 +4,7 @@ import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/Patents.sol";
 
-contract TestPatents {
+contract testPatents {
     // The address of the patents contract to be tested
     Patents patents = Patents(DeployedAddresses.Patents());
     string str_patent = "this is a contract.";
