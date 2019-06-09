@@ -1,100 +1,72 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
+    <title>Blockchain Patents</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Patents</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
+
   <body>
     <div class="container">
+      <br><br>
       <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Submit Your Patents!</h1>
-          <hr/>
-          <br/>
+        <div class="col-md-3 ">
+          <div id="left_navbar" class="list-group ">
+            <a id="btn1" href="#" onclick="makeActive(this.id); appendTemplate(this.id)" role="button" class="list-group-item list-group-item-action active">Submit Patent</a>
+            <a id="btn2" href="#" onclick="makeActive(this.id); appendTemplate(this.id)" role="button" class="list-group-item list-group-item-action">Your Patents</a>
+            <a id="btn3" href="#" onclick="makeActive(this.id); appendTemplate(this.id)" role="button" class="list-group-item list-group-item-action">Used Patents</a> 
+            <a id="btn4" href="#" onclick="makeActive(this.id); appendTemplate(this.id)" role="button" class="list-group-item list-group-item-action">Use a Patent</a> 
+          </div> 
+        </div>
 
-          <form>
-            <div class="form-group">
-              <label for="patent_input">Patent</label>
-              <input type="text" class="form-control" id="patent_input" placeholder="Enter patent">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>Blockchain Patents</h4>
+                  <hr>
+                </div>
+              </div>
+
+              <div id="main_holder" class="row">
+                <div id="new_patent_form" class="col-md-12" style="">
+                  <form>
+                    <div class="form-group row">
+                      <label for="username" class="col-4 col-form-label">Patent Name</label> 
+                      <div class="col-8">
+                        <input id="upatent_name" name="patent_name" placeholder="patent name" class="form-control here" required="required" type="text">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="email" class="col-4 col-form-label">Patent content</label> 
+                      <div class="col-8">
+                        <textarea name="patent_text" class="form-control" id="patent_text" rows="3" placeholder="patent description"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="offset-4 col-8">
+                        <input type="button" value="Submit" onclick="App.deployPatent()"/>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div id="your_patents" class="col-md-12" style="display: none">
+                </div>
+
+                <div id="using_patents" class="col-md-12" style="display: none">
+                </div>
+
+                <div id="all_patents" class="col-md-12" style="display: none">
+                </div>
+              </div> 
             </div>
-            <input type="button" value="Submit" onclick="App.deployPatent()"/>
-          </form>
-        </div>
-      </div>
-
-      <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Your Patents</h1>
-          <hr/>
-          <br/>
-        </div>
-      </div>
-
-      <ul class="list-group" id="own_patents">
-      </ul>
-
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">What patents are you using</h1>
-          <hr/>
-          <br/>
-        </div>
-      </div>
-
-      <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Who is using your patents</h1>
-          <hr/>
-          <br/>
-        </div>
-      </div>
-
-      <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
-      </div>
-    </div>
-
-    <div id="petTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-default panel-pet">
-          <div class="panel-heading">
-            <h3 class="panel-title">Scrappy</h3>
-          </div>
-          <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true">
-            <br/><br/>
-            <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
-            <strong>Age</strong>: <span class="pet-age">3</span><br/>
-            <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/><br/>
-            <button class="btn btn-default btn-adopt" type="button" data-id="0">Adopt</button>
           </div>
         </div>
       </div>
@@ -107,5 +79,53 @@
     <script src="js/web3.min.js"></script>
     <script src="js/truffle-contract.js"></script>
     <script src="js/app.js"></script>
+    <script type="text/javascript">
+      function makeActive(clicked_id) {
+        var btns = document.getElementById("left_navbar").childNodes;
+
+        var prev_clicked = document.getElementsByClassName("active");
+        console.log(prev_clicked[0])
+        prev_clicked[0].className = "list-group-item list-group-item-action"
+        console.log("test")
+        document.getElementById(clicked_id).className += " active"
+      }
+    </script>
+
+    <script type="text/javascript">
+      function appendTemplate(clicked_id) {
+
+        if(clicked_id == "btn1") {
+          document.getElementById("new_patent_form").setAttribute("style", "");
+          document.getElementById("your_patents").setAttribute("style", "display: none");
+          document.getElementById("using_patents").setAttribute("style", "display: none");
+          document.getElementById("all_patents").setAttribute("style", "display: none");
+          
+        }
+
+        if(clicked_id == "btn2") {
+          document.getElementById("new_patent_form").setAttribute("style", "display: none");
+          document.getElementById("your_patents").setAttribute("style", "");
+          document.getElementById("using_patents").setAttribute("style", "display: none");
+          document.getElementById("all_patents").setAttribute("style", "display: none");
+          App.getPatents();
+        }
+
+        if(clicked_id == "btn3") {
+          document.getElementById("new_patent_form").setAttribute("style", "display: none");
+          document.getElementById("your_patents").setAttribute("style", "display: none");
+          document.getElementById("using_patents").setAttribute("style", "");
+          document.getElementById("all_patents").setAttribute("style", "display: none");
+        }
+
+        if(clicked_id == "btn4") {
+          document.getElementById("new_patent_form").setAttribute("style", "display: none");
+          document.getElementById("your_patents").setAttribute("style", "display: none");
+          document.getElementById("using_patents").setAttribute("style", "display: none");
+          document.getElementById("all_patents").setAttribute("style", "");
+
+          App.getPatentsAll();
+        }
+      }
+    </script>
   </body>
 </html>
