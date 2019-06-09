@@ -23,7 +23,8 @@ contract testPatents {
     }
 
     function testUsePatent() public {
-        address a = patents.usePatent(str_patent);
-        Assert.equal(a, cur_adr, "Addresses should match");
+        string memory s = patents.getOwnerPatents();
+        Assert.equal(s, str_patent, "Addresses should match");
+
     }
 }

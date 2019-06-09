@@ -6,6 +6,18 @@ contract Patents {
 
     Data data = new Data();
 
+    struct patentOwner{
+        bytes[] patents;
+        mapping (bytes => address[]) patentUsers;
+        bool exists;
+        // backup
+        uint balance;
+    }
+
+    mapping (address => patentOwner) patentsOwner; // hashmap to keep addr->ownerInfo
+    mapping (bytes => address) patent_owner_map; // hashmap to keep patent->ownerAddr
+    address[] ownersAddresses; // keep track of patentOwners for map access
+
     // check if owner already exists
     function _checkOwnerExists() public view returns(bool){
         if (data.getExists(msg.sender)) return true;
@@ -82,6 +94,6 @@ contract Patents {
             patents[i] = stringPatent;
         }
         return patents[0];
-    }
 
+    }
 }
