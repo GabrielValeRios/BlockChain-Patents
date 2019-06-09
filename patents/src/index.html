@@ -38,7 +38,7 @@
                     <div class="form-group row">
                       <label for="username" class="col-4 col-form-label">Patent Name</label> 
                       <div class="col-8">
-                        <input id="upatent_name" name="patent_name" placeholder="patent name" class="form-control here" required="required" type="text">
+                        <input id="patent_name" name="patent_name" placeholder="patent name" class="form-control here" required="required" type="text">
                       </div>
                     </div>
 
@@ -115,6 +115,7 @@
           document.getElementById("your_patents").setAttribute("style", "display: none");
           document.getElementById("using_patents").setAttribute("style", "");
           document.getElementById("all_patents").setAttribute("style", "display: none");
+          App.getUsedPatents();
         }
 
         if(clicked_id == "btn4") {
@@ -123,7 +124,7 @@
           document.getElementById("using_patents").setAttribute("style", "display: none");
           document.getElementById("all_patents").setAttribute("style", "");
 
-          App.getPatentsAll();
+          App.getAllPatents();
         }
       }
     </script>

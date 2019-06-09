@@ -29,7 +29,7 @@ App = {
     
     // If no injected web3 instance is detected, fall back to Ganache
     else {
-      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7903');
+      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7454');
     }
 
     web3 = new Web3(App.web3Provider);
@@ -51,7 +51,8 @@ App = {
   },
 
   deployPatent: function() {
-    var patent = document.getElementById("patent_text").value;
+    var description = document.getElementById("patent_text").value;
+    var title = document.getElementById("patent_name").value;
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
         console.log(error);
@@ -60,7 +61,7 @@ App = {
       var account = accounts[0];
       App.contracts.Patent.deployed().then(function(instance) {
         patentInstance = instance;
-        patentInstance.declarePatent(patent, {from: account});
+        patentInstance.declarePatent(description, title, {from: account});
       
       }).catch(function(err) {
         console.log(err.message);
@@ -70,115 +71,134 @@ App = {
 
   getPatents: function() {
     var patentInstance;
-    var patentList = document.getElementById("own_patents");
 
     App.contracts.Patent.deployed().then(function(instance) {
       patentInstance = instance;
-      return patentInstance.getOwnerPatents.call();
-    }).then(function(patents) {
-      for (i = 0; i < patents.length; i++) {
-        console.log(patents[i]);
-        App.addPatent("titulo", patents[i]);
-      }
-    }).catch(function(err) {
-      console.log(err.message);
-    });
-  },
+      return patentInstance.listPatents.call();
+      }).then(function(descriptions) {
+        console.log(descriptions);
 
-
-  getPatentsAll: function() {
-    var patentInstance;
-    var patentList = document.getElementById("own_patents");
-    console.log("cheguei")
-
-    App.contracts.Patent.deployed().then(function(instance) {
-      patentInstance = instance;
-      return patentInstance.getAllPatents.call();
-    }).then(function(patents) {
-      for (i = 0; i < patents.length; i++) {
-        console.log(patents[i]);
-        App.addPatentAll("titulo", patents[i]);
-      }
-    }).catch(function(err) {
-      console.log(err.message);
-    });
-  },
-
-
-  addPatent: function(title, content) {
-    var elem = document.getElementById("your_patents");
-        
-        var div_node = document.createElement("DIV");
-        div_node.className = "panel-body";
-
-        var p_node = document.createElement("p");
-
-        var strong_node = document.createElement("strong");
-        strong_node_text = document.createTextNode(title);
-        strong_node.appendChild(strong_node_text);
-
-        p_node.appendChild(strong_node);
-        div_node.appendChild(p_node);
-
-        var p_node = document.createElement("p");
-        p_node_text = document.createTextNode(content);
-        p_node.appendChild(p_node_text);
-
-        div_node.appendChild(p_node);
-
-        elem.appendChild(div_node);
-  },
-
-  addPatentAll: function(title, content) {
-    var elem = document.getElementById("your_patents");
-        
-        console.log("cheguei2")
-        var div_node = document.createElement("DIV");
-        div_node.className = "panel-body";
-
-        var p_node = document.createElement("p");
-
-        var strong_node = document.createElement("strong");
-        strong_node_text = document.createTextNode(title);
-        strong_node.appendChild(strong_node_text);
-
-        p_node.appendChild(strong_node);
-        div_node.appendChild(p_node);
-
-        var p_node = document.createElement("p");
-        p_node_text = document.createTextNode(content);
-
-        var button = document.createElement('button');
-        button.innerHTML = 'Use Patent';
-        button.onclick = function(){
-          App.usePatent(content, 1);return false;
-        };
-        p_node.appendChild(p_node_text);
-
-        div_node.appendChild(p_node);
-
-        elem.appendChild(div_node);
-  },
-
-    usePatent: function(content, price) {
-      web3.eth.getAccounts(function(error, accounts) {
-      
-        if (error) {
-          console.log(error);
+        var elem = document.getElementById("your_patents");
+         while (elem.firstChild) {
+          elem.removeChild(elem.firstChild);
         }
-        
-        var account = accounts[0];
-        App.contracts.Patent.deployed().then(function(instance) {
-          patentInstance = instance;
-          patentInstance.usePatent(content, price, {from: account});
-        
-        }).catch(function(err) {
-          console.log(err.message);
-        });
+        for (i = 1; i < descriptions.length; i++) {
+          App.addPatent("Titulo", descriptions[i], elem);
+        }
       });
-    },
+  },  
+
+  getAllPatents: function() {
+    var patentInstance;
+
+    App.contracts.Patent.deployed().then(function(instance) {
+      patentInstance = instance;
+      return patentInstance.listAllPatents.call();
+      }).then(function(descriptions) {
+        console.log(descriptions);
+        var elem = document.getElementById("all_patents");
+        while (elem.firstChild) {
+          elem.removeChild(elem.firstChild);
+        }
+        for (i = 1; i < descriptions.length; i++) {
+          App.addPatentAll("Titulo", descriptions[i], i);
+        }
+      });
+  },
+
+  getUsedPatents: function() {
+    var patentInstance;
+
+    App.contracts.Patent.deployed().then(function(instance) {
+      patentInstance = instance;
+      return patentInstance.listUsedPatents.call();
+      }).then(function(descriptions) {
+        console.log(descriptions);
+        var elem = document.getElementById("using_patents");
+        while (elem.firstChild) {
+          elem.removeChild(elem.firstChild);
+        }
+        for (i = 1; i < descriptions.length; i++) {
+          App.addPatent("Titulo", descriptions[i], elem);
+        }
+      });
+  },
+
+  addPatent: function(title, content, elem) {
+    var div_node = document.createElement("DIV");
+    div_node.className = "panel-body";
+
+    var p_node = document.createElement("p");
+
+    var strong_node = document.createElement("strong");
+    strong_node_text = document.createTextNode(title);
+    strong_node.appendChild(strong_node_text);
+
+    p_node.appendChild(strong_node);
+    div_node.appendChild(p_node);
+
+    var p_node = document.createElement("p");
+    p_node_text = document.createTextNode(content);
+    p_node.appendChild(p_node_text);
+
+    div_node.appendChild(p_node);
+
+    elem.appendChild(div_node);
+  },
+
+  addPatentAll: function(title, content, idx) {
+    var elem = document.getElementById("all_patents");
+
+    var div_node = document.createElement("DIV");
+    div_node.className = "panel-body";
+
+    var p_node = document.createElement("p");
+
+    var strong_node = document.createElement("strong");
+    strong_node_text = document.createTextNode(title);
+    strong_node.appendChild(strong_node_text);
+
+    p_node.appendChild(strong_node);
+    div_node.appendChild(p_node);
+
+    var p_node = document.createElement("p");
+    p_node_text = document.createTextNode(content);
+
+    var button = document.createElement('button');
+    button.innerHTML = 'Use Patent';
+    button.onclick = function(){
+      App.usePatent(idx);return false;
+    };
+    p_node.appendChild(p_node_text);
+
+    div_node.appendChild(p_node);
+    div_node.appendChild(button);
+
+    elem.appendChild(div_node);
+  },
+
+  usePatent: function(idx) {
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      
+      var account = accounts[0];
+      App.contracts.Patent.deployed().then(function(instance) {
+        patentInstance = instance;
+        patentInstance.usePatents(idx, {from: account});
+      
+      }).catch(function(err) {
+        console.log(err.message);
+      });
+    });
+  },
+
+
 
 };
+
+
 
 $(function() {
   $(window).load(function() {
