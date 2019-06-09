@@ -11,20 +11,6 @@ contract Patents {
         uint balance;
     }
 
-    // struct Patent{
-    //     bytes title;
-    //     bytes description;
-    //     address owner;
-    // }
-
-    // struct User{
-    //     address owner;
-    //     uint balance;
-    // }
-
-    // struct PatentHasUser {
-
-    // }
     mapping (address => patentOwner) patentsOwner; // hashmap to keep addr->ownerInfo
     mapping (bytes => address) patent_owner_map; // hashmap to keep patent->ownerAddr
     address[] ownersAddresses; // keep track of patentOwners for map access
